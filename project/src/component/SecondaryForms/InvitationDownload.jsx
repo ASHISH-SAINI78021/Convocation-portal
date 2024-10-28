@@ -11,10 +11,11 @@ const PdfGenerator = () => {
         
         getInvitation();
        
-    }, []);
+    }, [auth?.token]);
     const getInvitation = async () => {
     try {
       setLoading(true);
+      console.log(auth)
       const response = await fetch(`${API}/api/v1/alumni/invitation`, {
         method: "GET",
         headers: {
