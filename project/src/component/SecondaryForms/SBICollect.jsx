@@ -64,7 +64,14 @@ const PaymentProof = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4" style={{ backgroundImage: "url('/background.jpeg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div
+      className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4"
+      style={{
+        backgroundImage: "url('/background.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl w-full">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Convocation Payment Confirmation
@@ -135,23 +142,23 @@ const PaymentProof = () => {
           >
             {loading ? "Submitting..." : "Submit"}
           </button>
-        </form>
-      </div>
 
-      {/* Bottom Navigation Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
-        <button
-          onClick={handlePrevious}
-          className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          className="p-4 text-lg font-bold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-transform duration-200 ease-in-out"
-        >
-          Next
-        </button>
+          {/* Bottom Navigation Buttons */}
+          <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
+            <button
+              onClick={handlePrevious}
+              className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
+            >
+              Previous
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-4 text-lg font-bold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-transform duration-200 ease-in-out"
+            >
+              Next
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
