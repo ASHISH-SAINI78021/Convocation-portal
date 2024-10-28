@@ -34,7 +34,7 @@ function App() {
             setAuth((prev) => ({ ...prev, token: tokenFromUrl }));
         }
     }
-  }, []); // Dependency array to run on mount only
+  }, [auth?.token]); // Dependency array to run on mount only
 
   return (
     <>
