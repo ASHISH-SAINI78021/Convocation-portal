@@ -812,8 +812,8 @@ const AlumniForm = () => {
           {loading ? "Submitting..." : "Submit"}
         </button>
         {errors.submit && <span className={styles.error}>{errors.submit}</span>}
-      </form>
-      <div className="flex gap-4 mt-6">
+
+        <div className="flex gap-4 mt-6">
           <button
             onClick={handlePrevious}
             className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
@@ -821,6 +821,7 @@ const AlumniForm = () => {
             Previous
           </button>
         </div>
+      </form>
     </div>
   );
 };
