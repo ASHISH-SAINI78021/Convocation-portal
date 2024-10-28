@@ -8,14 +8,16 @@ const PdfGenerator = () => {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        
-        getInvitation();
+        if(auth?.token){
+
+          getInvitation();
+        }
        
     }, [auth?.token]);
     const getInvitation = async () => {
     try {
       setLoading(true);
-      console.log(auth)
+      console.log("before sending invitation link:",auth)
       const response = await fetch(`${API}/api/v1/alumni/invitation`, {
         method: "GET",
         headers: {
