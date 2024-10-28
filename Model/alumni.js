@@ -43,6 +43,8 @@ const alumniSchema = new mongoose.Schema({
     employmentStatus: { type: String, required: true },
     jobs: { type: String },
     alumniId: { type: Number, default: 0 },
+    typeOfEmployment: { type: String, required: true},
+    jobProfile: { type: String},
 });
 
 alumniSchema.pre("save", async function (next) {
