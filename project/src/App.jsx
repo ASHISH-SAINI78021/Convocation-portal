@@ -27,6 +27,7 @@ function App() {
     } else {
         // If no token in local storage, check URL params
         const params = new URLSearchParams(window.location.search);
+        console.log(params);
         const tokenFromUrl = params.get('token');
         console.log("token aaya hai:",tokenFromUrl);
         if (tokenFromUrl) {

@@ -128,7 +128,7 @@ module.exports.loginWithGoogle = async (req, res) => {
 
     // Redirect to the frontend with the token
     const redirectURL = `${process.env.FRONTEND_URL}/dashboard/main?token=${token}`;
-    return res.redirect(redirectURL);
+    res.redirect(redirectURL);
 
   } catch (error) {
     console.error(error);
