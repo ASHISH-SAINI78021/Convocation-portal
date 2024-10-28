@@ -21,7 +21,7 @@ const Form = () => {
     setLoading(true);
     try {
       let response = await fetch(
-        `https://convocation-portal-2.onrender.com/api/v1/auth/login`,
+        `${API}/api/v1/auth/login`,
         {
           method: "POST",
           headers: {

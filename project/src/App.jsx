@@ -21,17 +21,21 @@ function App() {
     // Check if there's a token in local storage
     const storedAuth = localStorage.getItem("auth");
     if (storedAuth) {
+      console.log(storedAuth);
       const token = JSON.parse(storedAuth);
-      console.log("token aaya hai:", token)
-      setAuth((prev) => ({ ...prev, token }));
-    } else {
+      console.log("token nhi aaya hai:", token)
+      setAuth((prev) => ({ ...prev, token:token }));
+    } else { 
         // If no token in local storage, check URL params
         const params = new URLSearchParams(window.location.search);
         console.log(params);
+        console.log("asefasdfasdfdsafasdfsd")
         const tokenFromUrl = params.get('token');
-        console.log("token aaya hai:",tokenFromUrl);
+        console.log("token  aaya hai:",tokenFromUrl);
         if (tokenFromUrl) {
-            localStorage.setItem("auth", {token:JSON.stringify(tokenFromUrl)});
+          console.log("setting in localStorage")
+            localStorage.setItem("auth", JSON.stringify({token:tokenFromUrl}));
+            console.log(localStorage.getItem("auth"));
             setAuth((prev) => ({ ...prev, token: tokenFromUrl }));
         }
     }
