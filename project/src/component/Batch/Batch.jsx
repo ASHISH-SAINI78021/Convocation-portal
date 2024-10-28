@@ -22,19 +22,19 @@ const Batch = () => {
         <h1 className="text-2xl font-bold mb-4">Select Your Graduating Year</h1>
         <div className="flex gap-6">
           <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2022 ? 'bg-red-300' : ''}`}
+            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2022 ? 'bg-red-300' : 'bg-white'}`}
             onClick={() => handleSelectBatch(2022)}
           >
             Batch 2022
           </button>
           <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2023 ? 'bg-red-300' : ''}`}
+            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2023 ? 'bg-red-300' : 'bg-white'}`}
             onClick={() => handleSelectBatch(2023)}
           >
             Batch 2023
           </button>
           <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2024 ? 'bg-red-300' : ''}`}
+            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2024 ? 'bg-red-300' : 'bg-white'}`}
             onClick={() => handleSelectBatch(2024)}
           >
             Batch 2024
