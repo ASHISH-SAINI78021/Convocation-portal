@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import Layout from '../Layout/Layout';
+import { useLocation, useNavigate } from "react-router-dom";
+import styles from './MainForm.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Batch = () => {
-  const [selectedBatch, setSelectedBatch] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false); // Track if the form has been submitted
+const MainForm = () => {
+  const [rollNumber, setRollNumber] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isVerified, setIsVerified] = useState(false); // Track if the roll number is verified
   const navigate = useNavigate();
+  const { batch } = useLocation()?.state;
 
-  const handleSelectBatch = (batch) => {
-    setSelectedBatch(batch);
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!rollNumber) {
+      toast.info("Please enter your roll number first before verifying");
+      return;
+    }
+    const newBatch = parseInt(batch);
+    const year = parseInt(rollNumber[1] + rollNumber[2]) + 2004;
 
-  const handleSubmit = () => {
-    if (selectedBatch) {
-      setIsSubmitted(true); // Set isSubmitted to true on first submit
-      navigate(`/dashboard/main/${selectedBatch}`, { state: { batch: selectedBatch } });
+    setLoading(true);
+    try {
+      if (rollNumber.length > 2 && year === newBatch) {
+        setIsVerified(true); // Set verification status to true
+        navigate(`/dashboard/main/${batch}/${rollNumber}/form`, { state: { rollNumber, batch } });
+      } else {
+        toast.error("Wrong roll number or batch year");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -23,62 +41,57 @@ const Batch = () => {
   };
 
   const handleNext = () => {
-    if (isSubmitted) {
-      navigate('/next-page'); // Replace with your desired path for the next page
+    if (isVerified) {
+      navigate(`/dashboard/next-page`); // Replace with your next page path
     }
   };
 
   return (
     <Layout>
-      <div className="flex flex-col items-center mt-8">
-        <h1 className="text-2xl font-bold mb-4">Select Your Graduating Year</h1>
-        <div className="flex gap-6">
+      <ToastContainer />
+      <div className={styles.container}>
+        <h1 className={styles.title}>Verification</h1>
+        <p className={styles.subtitle}>Please verify your roll number</p>
+        <div className={styles.inputGroup}>
+          <label className={styles.label}>Roll Number</label>
+          <input
+            type="text"
+            value={rollNumber}
+            onChange={(e) => setRollNumber(e.target.value)}
+            required
+            className={styles.input}
+            placeholder="Enter your Roll Number"
+            disabled={loading}
+          />
+        </div>
+        <div className={styles.buttonGroup}>
           <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2022 ? 'bg-red-300' : ''}`}
-            onClick={() => handleSelectBatch(2022)}
+            className={`${styles.button} ${loading ? styles.buttonDisabled : ''}`}
+            onClick={handleSubmit}
+            disabled={loading}
           >
-            Batch 2022
-          </button>
-          <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2023 ? 'bg-red-300' : ''}`}
-            onClick={() => handleSelectBatch(2023)}
-          >
-            Batch 2023
-          </button>
-          <button
-            className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2024 ? 'bg-red-300' : ''}`}
-            onClick={() => handleSelectBatch(2024)}
-          >
-            Batch 2024
+            {loading ? 'Verifying...' : 'Verify'}
           </button>
         </div>
-        <button
-          onClick={handleSubmit}
-          disabled={!selectedBatch}
-          className={`mt-4 flex items-center justify-center p-4 text-lg font-bold text-white border border-red-600 rounded-lg cursor-pointer shadow-md transition-transform duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-400 ${!selectedBatch ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}`}
-        >
-          Submit
-        </button>
+      </div>
 
-        {/* Previous and Next Buttons */}
-        <div className="flex gap-4 mt-6">
-          <button
-            onClick={handlePrevious}
-            className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={!isSubmitted} // Only enable Next button if form has been submitted
-            className={`p-4 text-lg font-bold text-white rounded-lg shadow-md transition-transform duration-200 ease-in-out ${isSubmitted ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}`}
-          >
-            Next
-          </button>
-        </div>
+      <div className="flex gap-4 mt-6">
+        <button
+          onClick={handlePrevious}
+          className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
+        >
+          Previous
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!isVerified} // Only enable Next button if verified
+          className={`p-4 text-lg font-bold text-white rounded-lg shadow-md transition-transform duration-200 ease-in-out ${isVerified ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}`}
+        >
+          Next
+        </button>
       </div>
     </Layout>
   );
 };
 
-export default Batch;
+export default MainForm;
