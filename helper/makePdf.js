@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const makePDF = async () => {
+const makePDF = async (alumni) => {
   const logoUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
   const mainImageUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
   const reactLogoUrl = 'https://w7.pngwing.com/pngs/452/495/png-transparent-react-javascript-angularjs-ionic-github-text-logo-symmetry-thumbnail.png';
@@ -135,7 +135,7 @@ const makePDF = async () => {
 </head>
 <body>
     <div class="container">
-        <div class="uuid">UUID UNIQUE</div>
+        <div class="uuid">${String(alumni?.alumniId ?? 0).padStart(4, '0')}</div>
         <img src="${logoUrl}" alt="NIT Kurukshetra Logo" class="logo">
         <h1>National Institute of Technology Kurukshetra</h1>
         <h2 style="font-family: 'Times New Roman', serif; font-weight: 400; font-style: italic; font-size: 24px;">
@@ -150,11 +150,11 @@ const makePDF = async () => {
                 <p><strong>Dept.:</strong></p>
             </div>
             <div class="value-column">
-                <p>Sanjay Grover</p>
-                <p>Sameer Kumar</p>
-                <p>ABC</p>
-                <p>ABC</p>
-                <p>ABC</p>
+                <p>${alumni.name}</p>
+                <p>${alumni.fathername}</p>
+                <p>${alumni.batch}</p>
+                <p>${alumni.branch}</p>
+                <p>${alumni.department}</p>
             </div>
             <div class="image-column">
                 <div class="image-placeholder">
