@@ -1,183 +1,137 @@
 const puppeteer = require('puppeteer');
 
-const makePDF = async (alumni) => {
-    // console.log(alumni)
-    const logoUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
-    const mainImageUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
-    const reactLogoUrl = 'https://w7.pngwing.com/pngs/452/495/png-transparent-react-javascript-angularjs-ionic-github-text-logo-symmetry-thumbnail.png';
-    const backgroundUrl = 'https://ugcounselor-content.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/04/03203527/NIT-Kurukshetra.jpg';
-    const venueUrl = 'https://ugcounselor-content.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/04/03203527/NIT-Kurukshetra.jpg';
-    const venueLocation="NIT Kurukshetra"
-    const venueDate="16 November, 2024"
-    const venueTime="10:00 AM"
-    const htmlTemplate = `<!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>19th Convocation Ceremony</title>
-      <style>
-          body {
-              font-family: 'Georgia', serif; /* Closer to the original serif font */
-              background: url('${backgroundUrl}') no-repeat center center fixed;
-              background-size: cover;
-              opacity: 0.92;
-              margin: 0;
-              padding: 0;
-          }
-          .container {
-              width: 70%;
-              margin: 50px auto;
-              padding: 30px;
-              background-color: rgba(255, 255, 255, 0.85);
-              border-radius: 8px;
-              box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-              text-align: center;
-              position: relative;
-          }
-          .logo {
-              width: 130px;
-              margin: 10px auto;
-          }
-          h1 {
-              font-size: 30px;
-              font-weight: bold;
-              margin-top: 10px;
-          }
-          h2 {
-              font-size: 24px;
-              font-weight: 600;
-              margin: 20px 0 30px 0;
-          }
-          .uuid {
-              position: absolute;
-              top: 10px;
-              right: 20px;
-              font-size: 16px;
-              font-weight: bold;
-              color: #333;
-          }
-          .details {
-              display: flex;
-              justify-content: space-between;
-              margin-top: 20px;
-          }
-          .text-column, .value-column, .image-column {
-              width: 30%;
-              text-align: left;
-          }
-          .text-column p, .value-column p {
-              font-size: 18px;
-              line-height: 1.8;
-              margin: 8px 0;
-              font-weight: 500;
-          }
-          .value-column p {
-              text-align: left;
-          }
-          .image-placeholder img {
-              width: 100%;
-              height: 150px;
-              object-fit: contain;
-              border-radius: 8px;
-              margin-top: 10px;
-          }
-          .venue-image img {
-              width: 100%;
-              height: 200px;
-              object-fit: cover;
-              margin-top: 30px;
-              border-radius: 8px;
-          }
-          footer {
-              margin-top: 40px;
-              font-style: italic;
-              font-size: 18px;
-              font-weight: 400;
-              color: #333;
-          }
-              .venue-info {
-            margin-top: 30px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #333;
-            text-align: center;
-        }
-            .combined-column {
-    text-align: left; /* Align text to the left */
-}
+const makePDF = async () => {
+  const logoUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
+  const mainImageUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
+  const reactLogoUrl = 'https://w7.pngwing.com/pngs/452/495/png-transparent-react-javascript-angularjs-ionic-github-text-logo-symmetry-thumbnail.png';
+  const backgroundUrl = 'https://media.collegedekho.com/media/img/news/NIT_Kurukshetra_ECE_Previous_Years_JEE_Main_Cutoff_Ranks.png?q=40&tr=w-640,h-300https://nitkkr.ac.in/wp-content/uploads/2021/08/banner-2.jpg';
 
-.row {
-    display: flex; /* Use flexbox for alignment */
-    justify-content: space-between; /* Space between key and value */
-    margin-bottom: 10px; /* Space between rows */
-}
+  const htmlTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>19th Convocation Ceremony Invitation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url("${backgroundUrl}") no-repeat center center fixed;
+      background-size: cover;
+    }
 
-.key {
-    flex: 0 0 150px; /* Fixed width for keys */
-    font-weight: bold; /* Make keys bold */
-}
+    .container {
+      width: 80%;
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      position: relative;
+      text-align: center;
+    }
 
-.value {
-    flex: 1; /* Take remaining space for values */
-    text-align: left; /* Align values to the left */
-}
+    .logo {
+      width: 100px;
+      margin: 10px auto;
+    }
 
-      </style>
-  </head>
-  <body>
-      <div class="container">
-          <div class="uuid">
-  ${(alumni.alumniId ?? alumni.rollNumber).toString().padStart(4, '0')}
-</div>
-          <img src="${logoUrl}" alt="NIT Kurukshetra Logo" class="logo">
-          <h1>National Institute of Technology Kurukshetra</h1>
-          <h2 style="font-family: 'Times New Roman', serif; font-weight: 400; font-style: italic; font-size: 24px;">
-              welcomes you for <br><span style="font-size: 32px; font-weight: bold;">19th Convocation Ceremony</span>
-          </h2>
-          <div class="details">
-              <div class="combined-column">
-        <div class="row">
-            <strong class="key">Student’s Name:</strong>
-            <span class="value">${alumni.name}</span>
-        </div>
-        <div class="row">
-            <strong class="key">Father’s Name:</strong>
-            <span class="value">${alumni.fatherName}</span>
-        </div>
-        <div class="row">
-            <strong class="key">Batch:</strong>
-            <span class="value">${alumni.batch}</span>
-        </div>
-        <div class="row">
-            <strong class="key">Branch:</strong>
-            <span class="value">${alumni.branch}</span>
-        </div>
-        <div class="row">
-            <strong class="key">Dept.:</strong>
-            <span class="value">${alumni.department ?? "N/A"}</span>
-        </div>
+    .header {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #333;
+      margin: 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .main-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .uuid {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .subheading {
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .react-logo {
+      width: 50px;
+      margin: 20px auto;
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="uuid">UUID UNIQUE</div>
+    <img src="${logoUrl}" alt="NIT Logo" class="logo">
+
+    <div class="header">
+      <h1>19th Convocation Ceremony</h1>
+      <img src="${mainImageUrl}" alt="Main Visual" class="main-image">
     </div>
-              <div class="image-column">
-                  <div class="image-placeholder">
-                      <img src="${alumni.photo}" alt="Main Image">
-                  </div>
-                  <div class="image-placeholder" style="height: 50px;">
-                      <img src="${alumni.signature}" alt="React Logo" style="height: 100%;">
-                  </div>
-              </div>
-          </div>
-          <div class="venue-info">
-            <p><strong>Venue Location:</strong> ${venueLocation}</p>
-            <p><strong>Date:</strong> ${venueDate}</p>
-            <p><strong>Time:</strong> ${venueTime}</p>
-        </div>
-          <footer>
-              Let’s come together to celebrate yesterday, cherish today, and welcome tomorrow.
-          </footer>
-      </div>
-  </body>
-  </html>`;
+
+    <p class="subheading">National Institute of Technology, Kurukshetra</p>
+    <p>Invites You to Relive Those Unforgettable Moments</p>
+    <p><em>“Woh din bhi kya din the...”</em></p>
+    <p>
+      As we gather for the 19th Convocation Ceremony, we invite you to journey back to the days of late-night study sessions, endless laughter, unforgettable friendships, and shared dreams.
+      Join us as we celebrate the success of our graduating class and relive the cherished memories that made NIT Kurukshetra our second home.
+    </p>
+    <p>
+      Let’s come together to celebrate yesterday, cherish today, and welcome tomorrow.
+    </p>
+    <p class="details">
+      Date: [Insert Date Here] <br>
+      Time: [Insert Time Here] <br>
+      Venue: NIT Kurukshetra Campus
+    </p>
+    <p>Be there to witness new beginnings and recall the moments that shaped our past.</p>
+    <img src="${reactLogoUrl}" alt="React Logo" class="react-logo">
+    <p class="signature">Student Signature</p>
+  </div>
+</body>
+</html>
+`;
+
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -185,7 +139,7 @@ const makePDF = async (alumni) => {
   await page.setContent(htmlTemplate, { waitUntil: 'networkidle0' });
 
   // Generate PDF
-  const pdfBuffer = await page.pdf({
+  await page.pdf({
     path: './admit_card_12213082.pdf',
     format: 'A4',
     printBackground: true,
@@ -193,9 +147,7 @@ const makePDF = async (alumni) => {
   });
 
   await browser.close();
-
-  return pdfBuffer
-
+  console.log('PDF Generated!');
 };
 
-module.exports = makePDF;
+makePDF();
