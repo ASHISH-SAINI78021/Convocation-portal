@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import toast from "react-hot-toast";
+import {API} from "../const.js"
 
 const Form = () => {
   const [email, setEmail] = useState("");
