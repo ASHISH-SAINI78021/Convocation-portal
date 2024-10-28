@@ -1,9 +1,9 @@
-import React from 'react';
-import { Breadcrumb, Layout, Menu, theme, Avatar, Tooltip, Button } from 'antd';
+
+import { Layout, Menu, Avatar, Tooltip, Button } from 'antd';
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 
-const { Header, Content, Footer } = Layout;
+const { Header } = Layout;
 
 const items = new Array(2).fill(null).map((_, index) => ({
   key: index + 1,
@@ -11,11 +11,8 @@ const items = new Array(2).fill(null).map((_, index) => ({
 }));
 
 const App = () => {
-  const [auth , setAuth] =  useAuth();
+  const { setAuth } =  useAuth();
   const navigate = useNavigate();
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   const handleLogout = () => {
     localStorage.removeItem("auth");

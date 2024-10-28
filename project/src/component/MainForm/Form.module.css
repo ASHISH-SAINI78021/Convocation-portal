@@ -3,12 +3,13 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url('/background.jpeg'); /* Add background image */
+  background-image: url('/bg.jpeg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Keeps the background fixed */
   padding: 1rem;
-  overflow: hidden; /* Prevents the form container from scrolling */
+  overflow: hidden;
+  padding: 2rem /* Prevents the form container from scrolling */
 }
 
 .form {
@@ -74,7 +75,6 @@ select:focus {
 .radioGroup {
   display: flex;
   gap: 1rem;
-  margin-top: 0.5rem;
 }
 
 .radioGroup label {

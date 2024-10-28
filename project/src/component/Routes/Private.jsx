@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet } from "react-router-dom";
-import Page from '../Page';
 import { useAuth } from '../context/auth';
 import { API } from '../../const';
 
 const Private = () => {
     const [ok, setok] = useState(false);
-    const [auth , setAuth] = useAuth();
+    const { auth } = useAuth();
     // useEffect(() => {
     //   // Check if there's a token in local storage
     //   const storedAuth = localStorage.getItem("auth");
@@ -56,14 +55,11 @@ const Private = () => {
       };
   
       if (auth?.token) init();
-    }, [auth?.token]);
+    }, [auth?.token, setok]);
   
   
     return <div>
       <Outlet/>
-      {/* {
-        (ok) ? <Outlet/> : <Page/>
-      } */}
     </div>;
   };
   

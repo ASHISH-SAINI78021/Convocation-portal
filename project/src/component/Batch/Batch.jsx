@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Layout from '../Layout/Layout';
 
@@ -20,7 +20,7 @@ const Batch = () => {
     <Layout>
       <div className="flex flex-col items-center mt-8">
         <h1 className="text-2xl font-bold mb-4">Select Your Graduating Year</h1>
-        <div className="flex gap-6">
+        <div className="flex gap-6 md:flex-row flex-col">
           <button
             className={`flex items-center justify-center p-8 text-lg font-bold text-gray-800 border border-gray-300 rounded-xl cursor-pointer shadow-md transition-transform duration-200 ease-in-out w-36 h-30 ${selectedBatch === 2022 ? 'bg-red-300' : 'bg-white'}`}
             onClick={() => handleSelectBatch(2022)}

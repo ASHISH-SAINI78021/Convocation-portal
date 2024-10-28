@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./Form.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
@@ -6,7 +6,7 @@ import { useAuth } from "../context/auth";
 
 const AlumniForm = () => {
   const { rollNumber, batch } = useLocation().state;
-  const [auth, setAuth] = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -92,6 +92,8 @@ const AlumniForm = () => {
     if (!formData.mobile) newErrors.mobile = "Mobile number is required.";
     if (!formData.dob) newErrors.dob = "Date of birth is required.";
     if (!formData.gender) newErrors.gender = "Gender is required.";
+    if (formData.mobile.length!==10) newErrors.mobile = "Mobile number should be of 10 digits.";
+    if (!formData.email.includes('@') || !formData.email.includes(".")) newErrors.email = "Invalid email.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -169,6 +171,7 @@ const AlumniForm = () => {
         //   batch: '',
         // });
         setErrors({});
+        localStorage.setItem("batch", formData.batch);
         navigate("/dashboard/rsvp");
       } else {
         setErrors({ submit: "Error submitting the form, please try again." });
@@ -221,7 +224,7 @@ const AlumniForm = () => {
             onChange={handleChange}
           />
 
-          <div className="flex ">
+          <div className="flex md:flex-row flex-col">
             <div>
               <label>
                 Date of Birth
@@ -237,7 +240,7 @@ const AlumniForm = () => {
             </div>
             {errors.dob && <span className={styles.error}>{errors.dob}</span>}
 
-            <div className="ml-20">
+            <div className="md:ml-20">
               <label>
                 Gender
                 <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
@@ -351,34 +354,10 @@ const AlumniForm = () => {
           </select>
 
           <label>
-            Department
+            Branch
             <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
           </label>
-          <select
-            style={{ padding: "7px" }}
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            className={styles.select}
-          >
-            <option value="Computer Engineering">Computer Engineering</option>
-            <option value="Civil Engineering">Civil Engineering</option>
-            <option value="Mechanical Engineering">Mechanical Engineering</option>
-            <option value="Electrical Engineering">Electrical Engineering</option>
-            <option value="Elec and Comm Engg">
-              Electronics and Communication Engineering
-            </option>
-            <option value="Sciences">Sciences</option>
-            <option value="Computer Application">Computer Application</option>
-            <option value="Humanities and Social Sciences">
-              Humanities and Social Sciences
-            </option>
-            <option value="School">School</option>
-          </select>
 
-          <label>
-            Branch<span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
-          </label>
           <select
             style={{ padding: "7px" }}
             name="branch"

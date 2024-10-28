@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/auth';
 
 const RSVP = () => {
   const [response, setResponse] = useState(null); // Store user response
-  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -36,7 +34,7 @@ const RSVP = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4" style={{ backgroundImage: "url('/background.jpeg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4" style={{ backgroundImage: "url('/bg.jpeg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Convocation RSVP Form
@@ -91,9 +89,7 @@ const RSVP = () => {
         </button>
       </div>
 
-        <footer className="mt-8 text-center text-sm text-gray-500">
-          If you have any questions, please contact us at <span className="font-semibold text-gray-700">convocation@university.com</span>.
-        </footer>
+  
       </div>
 
       {/* Bottom Navigation Buttons */}

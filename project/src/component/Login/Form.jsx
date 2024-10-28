@@ -64,59 +64,18 @@ const Form = () => {
           alt="College Logo"
           className="w-20 h-20 mb-2"
         />
-        <h2 className="text-2xl font-bold text-navy-800">NIT Kurukshetra</h2>
+        <h2 className="text-3xl font-bold text-navy-800 text-center">National Institute of Technology, Kurukshetra</h2>
       </div>
       
       <h1 className="text-3xl font-semibold text-center text-navy-800">
-        19th Convocation Registration
+        19<sup>th</sup> Convocation Registration
       </h1>
       {/* <p className="text-gray-600 text-center mt-2 mb-6">Sign in to continue</p> */}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your email"
-            disabled={loading}
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full mt-1 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your password"
-            disabled={loading}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className={`w-full py-3 rounded-md bg-[#C21717] text-white font-semibold hover:bg-[#C21720] transition-all duration-300 ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={loading}
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
 
         <button
           type="button"
           onClick={handleGoogle}
-          className="w-full py-3 border border-gray-300 rounded-md flex items-center justify-center gap-2 mt-4 hover:bg-gray-100 transition-all"
+          className="w-full py-3 border border-gray-300 rounded-md flex items-center justify-center gap-2 mt-4 hover:bg-gray-200 transition-all text-xl"
           disabled={loading}
         >
           <svg
@@ -144,22 +103,8 @@ const Form = () => {
               d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
             ></path>
           </svg>
-          Sign in with Google
+          <h3>Sign in with Google</h3>
         </button>
-      </form>
-
-      <div className="mt-6 text-center">
-        <p className="text-gray-600">
-          Don't have an account?{" "}
-          <button
-            className="text-[#C21717] font-medium hover:underline"
-            onClick={() => navigate("/signup")}
-            disabled={loading}
-          >
-            Sign up
-          </button>
-        </p>
-      </div>
     </div>
   );
 };
