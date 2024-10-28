@@ -75,13 +75,7 @@ const RSVP = () => {
           Submit
         </button>
 
-        <footer className="mt-8 text-center text-sm text-gray-500">
-          If you have any questions, please contact us at <span className="font-semibold text-gray-700">convocation@university.com</span>.
-        </footer>
-      </div>
-
-      {/* Bottom Navigation Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
+        <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
         <button
           onClick={handlePrevious}
           className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
@@ -96,6 +90,14 @@ const RSVP = () => {
           Next
         </button>
       </div>
+
+        <footer className="mt-8 text-center text-sm text-gray-500">
+          If you have any questions, please contact us at <span className="font-semibold text-gray-700">convocation@university.com</span>.
+        </footer>
+      </div>
+
+      {/* Bottom Navigation Buttons */}
+      
     </div>
   );
 };
