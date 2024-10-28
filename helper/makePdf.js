@@ -194,4 +194,5 @@ const makePDF = async (alumni) => {
   console.log('PDF Generated!');
 };
 
-makePDF();
+
+module.exports =makePDF
