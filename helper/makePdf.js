@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 
 const makePDF = async (alumni) => {
+    console.log(alumni)
   const logoUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
   const mainImageUrl = 'https://upload.wikimedia.org/wikipedia/en/7/75/National_Institute_of_Technology%2C_Kurukshetra_Logo.png';
   const reactLogoUrl = 'https://w7.pngwing.com/pngs/452/495/png-transparent-react-javascript-angularjs-ionic-github-text-logo-symmetry-thumbnail.png';
@@ -150,11 +151,11 @@ const makePDF = async (alumni) => {
                 <p><strong>Dept.:</strong></p>
             </div>
             <div class="value-column">
-                <p>${alumni.name}</p>
-                <p>${alumni.fathername}</p>
-                <p>${alumni.batch}</p>
-                <p>${alumni.branch}</p>
-                <p>${alumni.department}</p>
+                <p>${alumni?.name}</p>
+                <p>${alumni?.fathername}</p>
+                <p>${alumni?.batch}</p>
+                <p>${alumni?.branch}</p>
+                <p>${alumni?.department}</p>
             </div>
             <div class="image-column">
                 <div class="image-placeholder">
