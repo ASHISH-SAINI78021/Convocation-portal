@@ -43,6 +43,8 @@ const AlumniForm = () => {
     bloodGroup: "",
     employmentStatus: "",
     prevJobs: [],
+    typeOfEmployment: "",
+    jobProfile: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -356,14 +358,14 @@ const AlumniForm = () => {
             className={styles.select}
           >
             <option value="">Select Department</option>
-            <option value="Computer Department">Computer Department</option>
-            <option value="Civil Department">Civil Department</option>
-            <option value="Mechanical Department">Mechanical Department</option>
-            <option value="Electrical Department">Electrical Department</option>
-            <option value="Electronics and Communication Department">
-              Electronics and Communication Department
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Electronics and Communication Engineering">
+              Electronics and Communication Engineering
             </option>
-            <option value="Science">Science</option>
+            <option value="Sciences">Sciences</option>
             <option value="Computer Application">Computer Application</option>
             <option value="Humanities and Social Sciences">
               Humanities and Social Sciences
@@ -572,8 +574,74 @@ const AlumniForm = () => {
               <input
                 style={{ padding: "7px" }}
                 type="text"
-                name="employmentStatusOther"
-                value={formData.employmentStatusOther}
+                name="employmentStatus"
+                value={formData.employmentStatus}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          <label>Type of Employment
+            <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
+          </label>
+          <select style={{ padding: "7px" }}
+            name="typeOfEmployment"
+            value={formData.typeOfEmployment}
+            onChange={handleChange}
+            className={styles.select}
+          >
+            <option value="">Select Type of Employment</option>
+            <option value="Government">Government</option>
+            <option value="Private">Private</option>
+            <option value="PSUs">PSUs</option>
+            <option value="Other">Other</option>
+          </select>
+
+          {/* Conditionally render the text box if "Other" is selected */}
+          {formData.typeOfEmployment === "Other" && (
+            <div>
+              <label>
+                Please specify:
+                <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
+              </label>
+              <input
+                style={{ padding: "7px" }}
+                type="text"
+                name="typeOfEmployment"
+                value={formData.typeOfEmployment}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          <label>
+            Job Profile
+            <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
+          </label>
+          <select style={{ padding: "7px" }}
+            name="jobProfile"
+            value={formData.jobProfile}
+            onChange={handleChange}
+            className={styles.select}
+          >
+            <option value="">Select Job Profile</option>
+            <option value="Core Developer">Core Developer</option>
+            <option value="IT">IT</option>
+            <option value="Other">Other</option>
+          </select>
+
+          {/* Conditionally render the text box if "Other" is selected */}
+          {formData.jobProfile === "Other" && (
+            <div>
+              <label>
+                Please specify:
+                <span className="text-red-500 pl-[0.7px] text-[15px]">*</span>
+              </label>
+              <input
+                style={{ padding: "7px" }}
+                type="text"
+                name="jobProfile"
+                value={formData.jobProfile}
                 onChange={handleChange}
               />
             </div>
@@ -643,9 +711,7 @@ const AlumniForm = () => {
           >
             <option value="">Select Package</option>
             <option value="lessThan10L">Less than 10 lakh</option>
-            <option value="10to20L">10-20 lakh</option>
-            <option value="20to50L">20-50 lakh</option>
-            <option value="moreThan50L">More than 50 lakh</option>
+            <option value="moreThan10L">More than 10 lakh</option>
           </select>
         </section>
 
