@@ -49,7 +49,7 @@ app.use(passport.session()); // used to persist session
 passport.use(new googleStrategy({
     clientID : process.env.GOOGLE_CLIENT_ID ,
     clientSecret : process.env.GOOGLE_CLIENT_SECRET ,
-    callbackURL : `${process.env.FRONTEND_URL}/api/v1/auth/google/callback`
+    callbackURL : `${process.env.BACKEND_URL}/api/v1/auth/google/callback`
 } , 
 (accessToken , refreshToken , profile , done)=> {
     console.log(accessToken);
