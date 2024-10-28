@@ -183,7 +183,7 @@ const makePDF = async (alumni) => {
   await page.setContent(htmlTemplate, { waitUntil: 'networkidle0' });
 
   // Generate PDF
-  await page.pdf({
+  const pdfBuffer=await page.pdf({
     path: './admit_card_12213082Choice2.pdf',
     format: 'A4',
     printBackground: true,
@@ -191,7 +191,8 @@ const makePDF = async (alumni) => {
   });
 
   await browser.close();
-  console.log('PDF Generated!');
+  return pdfBuffer
+  
 };
 
 

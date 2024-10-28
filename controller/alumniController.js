@@ -199,6 +199,6 @@ module.exports.sendInvitaion = async (req, res) => {
         // res.status(200).json({ message: "Alumni deleted successfully" });
     } catch (error) {
         console.error("Error deleting alumni:", error);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: error.message });
     }
 };
