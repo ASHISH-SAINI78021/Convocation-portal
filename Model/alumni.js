@@ -45,6 +45,7 @@ const alumniSchema = new mongoose.Schema({
     alumniId: { type: Number, default: 0 },
     typeOfEmployment: { type: String, required: true},
     jobProfile: { type: String},
+    transactionId : {type : String , required : true}
 });
 
 alumniSchema.pre("save", async function (next) {

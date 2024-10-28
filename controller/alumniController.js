@@ -136,10 +136,12 @@ module.exports.createReceipt = async (req, res) => {
         }
         const receiptPath = req.file ? req.file.path : null;
         const receiptFileName = req.file ? req.file.filename : null;
+        const {transactionId} = req.body;
         // console.log(req.file)
         const updatedReceipt = await Alumni.findOneAndUpdate(
             { user: userId }, // Find the Alumni record by userId
             { 
+                transactionId : transactionId ,
                 receiptUrl: receiptPath, 
                 receiptFileName: receiptFileName 
             }, // Update fields
@@ -202,3 +204,31 @@ module.exports.sendInvitaion = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
+module.exports.formController = async(req , res)=> {
+    try {
+      console.log(req.user);
+      let level = 1;
+      const alumni = await Alumni.findOne({user : req.user.id});
+      if (alumni){
+        level = 2;
+      }
+      if (alumni?.transactionId && level == 2){
+        level = 3;
+      }
+      
+      return res.json({
+        success : true ,
+        level : level
+      });
+    } catch (error) {
+      console.log(error);
+      return res.json({
+        success : false ,
+        error
+      })
+    }
+  }
+  

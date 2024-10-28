@@ -10,7 +10,7 @@ router.post("/", isAuth, alumniController.uploadAlumniFiles, alumniController.cr
 router.get("/", alumniController.getAllAlumni);
 
 router.get("/invitation",isAuth, alumniController.sendInvitaion);
-
+router.get("/form-controller" , isAuth , alumniController.formController);
 
 // Route to get an alumni by ID
 router.get("/:id", alumniController.getAlumniById);
