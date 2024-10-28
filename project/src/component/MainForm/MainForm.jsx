@@ -75,7 +75,8 @@ const MainForm = () => {
         </div>
       </div>
 
-      <div className="flex gap-4 mt-6">
+      {/* Bottom Navigation Buttons */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
         <button
           onClick={handlePrevious}
           className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
