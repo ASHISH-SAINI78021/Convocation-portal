@@ -183,6 +183,10 @@ const AlumniForm = () => {
     setPreviousJobs([...previousJobs, { employer: "", jobDesignation: "" }]);
   };
 
+  const handlePrevious = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
   return (
     <div className={styles.formContainer}>
       <form style={{height:"95vh"}} className={styles.form} onSubmit={handleSubmit}>
@@ -809,6 +813,14 @@ const AlumniForm = () => {
         </button>
         {errors.submit && <span className={styles.error}>{errors.submit}</span>}
       </form>
+      <div className="flex gap-4 mt-6">
+          <button
+            onClick={handlePrevious}
+            className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
+          >
+            Previous
+          </button>
+        </div>
     </div>
   );
 };

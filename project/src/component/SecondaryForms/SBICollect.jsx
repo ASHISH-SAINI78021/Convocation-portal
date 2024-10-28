@@ -49,14 +49,22 @@ const PaymentProof = () => {
         console.error("Error:", error.message);
         alert("An error occurred. Please try again.");
       }
-    setLoading(false)
+      setLoading(false);
     } else {
       alert("Please provide both the transaction ID and receipt.");
     }
   };
 
+  const handlePrevious = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
+  const handleNext = () => {
+    navigate("/dashboard/invitation"); // Replace with the actual next page path
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-10 px-4" style={{ backgroundImage: "url('/background.jpeg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4" style={{ backgroundImage: "url('/background.jpeg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl w-full">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Convocation Payment Confirmation
@@ -129,28 +137,22 @@ const PaymentProof = () => {
           </button>
         </form>
       </div>
-{/* 
-      <div className="mt-8">
+
+      {/* Bottom Navigation Buttons */}
+      <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
         <button
-          onClick={getInvitation}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md transition-all"
+          onClick={handlePrevious}
+          className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"
         >
-          Get Invitation PDF
+          Previous
         </button>
-        {loading && <p className="text-center mt-4">Loading...</p>}
+        <button
+          onClick={handleNext}
+          className="p-4 text-lg font-bold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-transform duration-200 ease-in-out"
+        >
+          Next
+        </button>
       </div>
-      {pdfUrl && (
-        <div className="mt-4">
-          <a
-            href={pdfUrl}
-            target="_self"
-            download = "invitation.pdf"
-            className="text-blue-600 underline"
-          >
-            View Invitation PDF
-          </a>
-        </div>
-      )} */}
     </div>
   );
 };
