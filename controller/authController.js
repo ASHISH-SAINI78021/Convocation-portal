@@ -127,7 +127,7 @@ module.exports.loginWithGoogle = async (req, res) => {
     console.log("token aa gya:",token)
 
     // Redirect to the frontend with the token
-    const redirectURL = `https://celadon-bunny-9e4b78.netlify.app/main?token=${token}`;
+    const redirectURL = `${process.env.FRONTEND_URL}/main?token=${token}`;
     return res.redirect(redirectURL);
 
   } catch (error) {
