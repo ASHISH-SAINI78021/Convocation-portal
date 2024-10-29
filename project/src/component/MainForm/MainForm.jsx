@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Layout from "../Layout/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./MainForm.module.css";
@@ -10,7 +10,7 @@ const MainForm = () => {
   const [loading, setLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false); // Track if the roll number is verified
   const navigate = useNavigate();
-  const { batch } = useLocation()?.state;
+  const { batch } = useLocation().state;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,13 +23,13 @@ const MainForm = () => {
 
     setLoading(true);
     try {
-      if (rollNumber.length > 2 && year === newBatch) {
+      if (rollNumber.length === 8 && year === newBatch) {
         setIsVerified(true); // Set verification status to true
         navigate(`/dashboard/main/${batch}/${rollNumber}/form`, {
           state: { rollNumber, batch },
         });
       } else {
-        toast.error("Wrong roll number or batch year");
+        toast.error("Invalid roll number");
       }
     } catch (err) {
       toast.error(err.message);
@@ -81,7 +81,7 @@ const MainForm = () => {
         </div>
 
         {/* Bottom Navigation Buttons */}
-        <div className="fixed bottom-0 left-0 right-0 flex justify-between p-4 bg-white shadow-md">
+        <div className="flex justify-between p-4 bg-white">
           <button
             onClick={handlePrevious}
             className="p-4 text-lg font-bold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-700 transition-transform duration-200 ease-in-out"

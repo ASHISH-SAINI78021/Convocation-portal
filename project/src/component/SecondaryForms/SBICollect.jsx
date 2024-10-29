@@ -1,28 +1,34 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../const";
 import { useAuth } from "../context/auth";
 
 const PaymentProof = () => {
-  const [transactionId, setTransactionId] = useState("");
-  const [receipt, setReceipt] = useState(null);
-  const [auth, setAuth] = useAuth();
+  const [transactionId1, setTransactionId1] = useState("");
+  const [transactionId2, setTransactionId2] = useState("");
+  const [receipt1, setReceipt1] = useState(null);
+  const [receipt2, setReceipt2] = useState(null);
+  const { auth } = useAuth();
   const navigate = useNavigate();
-  const [pdfUrl, setPdfUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleReceiptUpload = (e) => {
-    setReceipt(e.target.files[0]); // Capture the uploaded file
+    setReceipt1(e.target.files[0]);
+  };
+
+  const handleReceiptUpload2 = (e) => {
+    setReceipt2(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (transactionId && receipt) {
+    if ((localStorage.getItem("batch") === "2024" && transactionId1 && receipt1) || (localStorage.getItem("batch") !== "2024" && transactionId1 && receipt1 && transactionId2 && receipt2)) {
       setLoading(true);
-      // Create a FormData object to handle the file and transaction ID
       const formData = new FormData();
-      formData.append("transactionId", transactionId);
-      formData.append("receipt", receipt);
+      formData.append("transactionId", transactionId1);
+      formData.append("receipt", receipt1);
+      formData.append("transactionId", transactionId2);
+      formData.append("receipt", receipt2);
 
       try {
         const response = await fetch(
@@ -37,8 +43,6 @@ const PaymentProof = () => {
         );
 
         if (response.ok) {
-          console.log("Transaction ID:", transactionId);
-          console.log("Uploaded Receipt:", receipt);
           navigate("/dashboard/invitation");
         } else {
           const errorData = await response.json();
@@ -67,7 +71,7 @@ const PaymentProof = () => {
     <div
       className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-10 px-4"
       style={{
-        backgroundImage: "url('/background.jpeg')",
+        backgroundImage: "url('/bg.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -98,40 +102,114 @@ const PaymentProof = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="transactionId"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Transaction ID
-            </label>
-            <input
-              type="text"
-              id="transactionId"
-              value={transactionId}
-              onChange={(e) => setTransactionId(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your Transaction ID"
-              required
-            />
-          </div>
+          {localStorage.getItem("batch") === "2024" ? (
+            <div>
+              <div>
+                <label
+                  htmlFor="transactionId"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Transaction ID for Registration Fees (₹500)
+                </label>
+                <input
+                  type="text"
+                  id="transactionId"
+                  value={transactionId1}
+                  onChange={(e) => setTransactionId1(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your Transaction ID"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="receiptUpload"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Upload Payment Receipt
+                </label>
+                <input
+                  type="file"
+                  id="receiptUpload"
+                  accept="application/pdf"
+                  onChange={handleReceiptUpload}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+                  required
+                />
+              </div>{" "}
+            </div>
+          ) : (
+            <div>
+              <div>
+                <label
+                  htmlFor="transactionId"
+                  className="block text-lg font-medium text-gray-700 mb-2"
+                >
+                  Transaction ID for Convocation Fees (₹1500)
+                </label>
+                <input
+                  type="text"
+                  id="transactionId"
+                  value={transactionId1}
+                  onChange={(e) => setTransactionId1(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your Transaction ID"
+                  required
+                />
+              </div>
 
-          <div>
-            <label
-              htmlFor="receiptUpload"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Upload Payment Receipt
-            </label>
-            <input
-              type="file"
-              id="receiptUpload"
-              accept="application/pdf"
-              onChange={handleReceiptUpload}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
-              required
-            />
-          </div>
+              <div>
+                <label
+                  htmlFor="receiptUpload"
+                  className="block text-lg font-medium text-gray-700 mb-2"
+                >
+                  Upload Payment Receipt
+                </label>
+                <input
+                  type="file"
+                  id="receiptUpload"
+                  accept="application/pdf"
+                  onChange={handleReceiptUpload}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="transactionId"
+                  className="block text-lg font-medium text-gray-700 mb-2"
+                >
+                  Transaction ID for Registration Fees (₹500)
+                </label>
+                <input
+                  type="text"
+                  id="transactionId"
+                  value={transactionId2}
+                  onChange={(e) => setTransactionId2(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your Transaction ID"
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="receiptUpload"
+                  className="block text-lg font-medium text-gray-700 mb-2"
+                >
+                  Upload Payment Receipt
+                </label>
+                <input
+                  type="file"
+                  id="receiptUpload"
+                  accept="application/pdf"
+                  onChange={handleReceiptUpload2}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none"
+                  required
+                />
+              </div>
+            </div>
+          )}
 
           <button
             type="submit"

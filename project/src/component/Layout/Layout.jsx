@@ -1,5 +1,3 @@
-import React from "react";
-import Header from "./Header";
 import Footer from "./Footer";
 import { Helmet } from "react-helmet";
 import { Toaster } from "react-hot-toast";
@@ -18,15 +16,10 @@ const Layout = ({ children, title, description, keywords, author }) => {
       {/* <Header></Header> */}
       <main style={{ minHeight: "70vh", overflow: "hidden" }}>
         <Toaster />
-        <div className="flex w-full">
-          <div className="w-full flex items-center justify-center lg:w-1/2">
+        <div className="flex w-full items-center justify-center h-screen" style={{ backgroundImage: `url('/GoldenJubilee.jpg')` }}>
+        <div className="bg-white p-8 shadow-sm border-2 border-red-100 rounded-lg">
             {children}
-          </div>
-          <div className="hidden relative lg:flex h-full w-1/2 bg-gray-200 items-center justify-center">
-            {/* Replace the Lottie component with an image */}
-            <img src='/GoldenJubilee.jpg' alt="Descriptive Alt Text" style={{ height: "100vh", width: "auto", backgroundColor: "#111" }} />
-            {/* <div className="w-full h-1/2 absolute bottom-0 bg-white/10 backdrop-blur-lg" /> */}
-          </div>
+        </div>
         </div>
       </main>
       <Footer></Footer>

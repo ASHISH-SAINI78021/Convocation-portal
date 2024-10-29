@@ -1,7 +1,6 @@
 import './App.css'
 import Login from "./component/Login/Login.jsx"
-import Main from './component/Main'
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Signup from './component/SignUp/Signup.jsx';
 import Page from './component/Page';
 import Private from './component/Routes/Private';
@@ -16,7 +15,7 @@ import Thankyou from './component/Thankyou/Thankyou';
 import PdfGenerator from './component/SecondaryForms/InvitationDownload.jsx';
 
 function App() {
-  const [auth , setAuth] = useAuth();
+  const { setAuth } = useAuth();
   useEffect(() => {
     // Check if there's a token in local storage
     const storedAuth = localStorage.getItem("auth");
@@ -39,7 +38,7 @@ function App() {
             setAuth((prev) => ({ ...prev, token: tokenFromUrl }));
         }
     }
-  }, []); // Dependency array to run on mount only
+  }, { setAuth }); // Dependency array to run on mount only
 
   return (
     <>
