@@ -15,7 +15,7 @@ import Thankyou from './component/Thankyou/Thankyou';
 import PdfGenerator from './component/SecondaryForms/InvitationDownload.jsx';
 
 function App() {
-  const { setAuth } = useAuth();
+  const [auth , setAuth] = useAuth();
   useEffect(() => {
     // Check if there's a token in local storage
     const storedAuth = localStorage.getItem("auth");
@@ -38,7 +38,7 @@ function App() {
             setAuth((prev) => ({ ...prev, token: tokenFromUrl }));
         }
     }
-  }, { setAuth }); // Dependency array to run on mount only
+  }, [auth?.token]); // Dependency array to run on mount only
 
   return (
     <>
